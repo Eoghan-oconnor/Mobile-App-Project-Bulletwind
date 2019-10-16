@@ -41,7 +41,6 @@ public class PlayerMove : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.LeftArrow))
             {
              transform.rotation = Quaternion.Euler(0,0,90);
-            
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
