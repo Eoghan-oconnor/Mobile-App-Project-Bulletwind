@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    public GameObject[] weapons;
     public GameObject weaponHere;
-
-
+    public PlayerMove player;
+    public Sprite idle;
+    public Sprite armed;
 
     void Start()
     {
@@ -19,6 +19,7 @@ public class WeaponPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
     }
 
@@ -28,6 +29,11 @@ public class WeaponPickup : MonoBehaviour
         if(player){
             Destroy(gameObject);
         }
+        if(player.gameObject.GetComponent<SpriteRenderer>().sprite == idle ){
+            player.gameObject.GetComponent<SpriteRenderer>().sprite = armed;
+            return;
+        }
+
     }
 
      
