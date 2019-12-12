@@ -15,30 +15,30 @@ public class WeaponPickup : MonoBehaviour
         //weaponHere = weapons[1];
         // Spawns Weapons 
         GetComponent<SpriteRenderer>().sprite = weaponHere.GetComponent<SpriteRenderer>().sprite;
-        
+        Debug.Log(IsArmed);      
     }
 
     // Update is called once per frame
     void Update()
     {
-
         
     }
 
     private void OnTriggerEnter2D(Collider2D WhatHitMe){
 
         var player = WhatHitMe.GetComponent<PlayerMove>();
+
         if(player){
             Destroy(gameObject);
+            IsArmed = true;
         }
-        // Changes sprite when weapons collected
+
         if(player.gameObject.GetComponent<SpriteRenderer>().sprite == idle ){
             player.gameObject.GetComponent<SpriteRenderer>().sprite = armed;
             IsArmed = true;
-            return;
         }
-
+    
+        Debug.Log(IsArmed);     
     }
 
-     
 }

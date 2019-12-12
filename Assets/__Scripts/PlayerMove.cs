@@ -6,56 +6,38 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    // == Public Properties ==
+
+    public float moveSpeed = 5f;
+    public Rigidbody2D rb;
+    Vector2 movement;
+    public Camera camera;
+    Vector2 mousePos;
     
-    // == Private Variables ==
-    [SerializeField]
-    private float moveSpeed = 10.0f;
-    private bool direction = true;
-    private Rigidbody2D rb;
 
-    // == Private Methods ==
-    // Update is called once per frame
-
-     void Start()
-     {
-         rb = GetComponent<Rigidbody2D>();
-     }
+   
+    
     void Update()
     {
-        Move();
-        
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
+
+
     }
+
+     void FixedUpdate()
+     {
+
+         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+
+         Vector2 lookDir = mousePos - rb.position;
+         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+         rb.rotation = angle;
+
+         
+     }
+
     
-
-    private void Move()
-    {
-       
-            // convert user input into world movement
-            float horizontalMovement = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
-            float verticalMovement = Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime;
-        
-            Vector2 movement = new Vector2(horizontalMovement,verticalMovement);
-            rb.velocity = movement.normalized * moveSpeed;
-
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-             transform.rotation = Quaternion.Euler(0,0,90);
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                transform.rotation = Quaternion.Euler(0,0, 270);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow)){
-                transform.rotation = Quaternion.Euler(0,0,180);
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow)) 
-            {
-                transform.rotation = Quaternion.Euler(0,0,0);
-            }
-
-
-    }
 
     
    
