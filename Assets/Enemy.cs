@@ -5,20 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+    public Bullet bullet;
+
      void OnCollisionEnter2D(Collision2D c){
-
-        Destroy(gameObject);
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         
-    }
+        if(bullet){
+            Destroy(gameObject);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
